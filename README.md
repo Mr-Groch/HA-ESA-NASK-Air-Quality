@@ -45,6 +45,6 @@ You can also use following [My Home Assistant](http://my.home-assistant.io/) lin
 
 In popup window you need to fill:
 
-- ID of ESA NASK station (required) - it is needed to put just a number that you can find in URL on ESA NASK website on station details page (eg. https://esa.nask.pl/szkola/id/**2010**),
+- ID of ESA NASK station (required) - it is needed to put just a number that you can find in URL on ESA NASK website on station details page (eg. esa.nask.pl/szkola/id/**2010**),
 
 You can add more than 1 station.
