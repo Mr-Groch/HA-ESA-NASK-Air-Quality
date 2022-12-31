@@ -1,0 +1,19 @@
+{
+  "config": {
+    "error": {
+      "invalid_token": "Invalid token",
+      "unknow_station_id": "Unknown station ID",
+      "server_error": "Server error",
+      "server_not_available": "Server is not available"
+    },
+    "step": {
+      "user": {
+        "title": "Add ESA NASK station using ID",
+        "description": "Fill id of your station",
+        "data": {
+          "id": "Station ID"
+        }
+      }
+    }
+  }
+}

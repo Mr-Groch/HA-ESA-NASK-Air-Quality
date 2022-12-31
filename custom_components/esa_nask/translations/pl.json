@@ -1,0 +1,19 @@
+{
+  "config": {
+    "error": {
+      "invalid_token": "Niewłaściwy token",
+      "unknow_station_id": "Nieznany ID stacji",
+      "server_error": "Błąd serwera",
+      "server_not_available": "Serwer jest niedostępny"
+    },
+    "step": {
+      "user": {
+        "title": "Dodaj stację ESA NASK wykorzystując ID",
+        "description": "Wypełnij pole ID swojej stacji",
+        "data": {
+          "id": "ID stacji"
+        }
+      }
+    }
+  }
+}
