@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import asyncio
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import (
@@ -20,7 +21,10 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up ESA NASK from a config entry."""
-    hass.config_entries.async_setup_platforms(entry, PLATFORMS)
+    for component in PLATFORMS:
+        hass.async_create_task(
+            hass.config_entries.async_forward_entry_setup(entry, component)
+        )
     entry.async_on_unload(entry.add_update_listener(update_listener))
     return True
 
@@ -32,4 +36,12 @@ async def update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload ESA NASK config entry."""
-    return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    unload_ok = all(
+        await asyncio.gather(
+            *[
+                hass.config_entries.async_forward_entry_unload(entry, component)
+                for component in PLATFORMS
+            ]
+        )
+    )
+    return unload_ok
