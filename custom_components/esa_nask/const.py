@@ -16,7 +16,7 @@ from homeassistant.components.sensor import (
 
 DOMAIN = "esa_nask"
 PLATFORMS = [Platform.SENSOR]
-SW_VERSION = "0.0.2"
+SW_VERSION = "1.0.1"
 
 SCAN_INTERVAL = timedelta(minutes=10)
 

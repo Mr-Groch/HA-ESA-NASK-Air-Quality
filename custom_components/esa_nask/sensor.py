@@ -66,6 +66,7 @@ class EsaNaskSensor(SensorEntity):
 
     def __init__(self, resType: str, scrapper: EsaNaskScrapper) -> None:
         self._state = None
+        self._AQI = None
         self._resType = resType
         self._scrapper = scrapper
         self._stationName = self._scrapper.GetStationName()
@@ -124,6 +125,7 @@ class EsaNaskSensor(SensorEntity):
 
         if self._resType == 'pm25' or self._resType == 'pm10':
             self._state = int(self._data["sensors"][0]["lastMeasurement"][self._resType]["value"])
+            self._AQI = self._data["sensors"][0]["lastMeasurement"][self._resType]["icon"]
         else:
             self._state = round((self._data["sensors"][0]["lastMeasurement"][self._resType]), 2)
         
@@ -132,3 +134,5 @@ class EsaNaskSensor(SensorEntity):
             "Station ID": self._scrapper.GetStationId(),
             "Last Update": self._scrapper.GetUpdateLastTime()
         }
+        if self._AQI:
+            self._attr_extra_state_attributes["AQI"] = self._AQI
