@@ -15,31 +15,5 @@
         }
       }
     }
-  },
-  "state_attributes": {
-    "PM25": {
-      "AQI": {
-        "state": {
-          "veryGood": "Very good",
-          "good": "Good",
-          "moderate": "Moderate",
-          "poor": "Poor",
-          "bad": "Bad",
-          "veryBad": "Very bad"
-        }
-      }
-    },
-    "PM10": {
-      "AQI": {
-        "state": {
-          "veryGood": "Very good",
-          "good": "Good",
-          "moderate": "Moderate",
-          "poor": "Poor",
-          "bad": "Bad",
-          "veryBad": "Very bad"
-        }
-      }
-    }
   }
 }
