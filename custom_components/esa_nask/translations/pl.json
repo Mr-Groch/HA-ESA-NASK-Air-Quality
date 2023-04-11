@@ -15,5 +15,23 @@
         }
       }
     }
+  },
+  "entity": {
+    "sensor": {
+      "esa_nask": {
+        "state_attributes": {
+          "AQI": {
+            "state": {
+              "veryGood": "Bardzo dobry",
+              "good": "Dobry",
+              "moderate": "Umiarkowany",
+              "poor": "Słaby",
+              "bad": "Zły",
+              "veryBad": "Bardzo zły"
+            }
+          }
+        }
+      }
+    }
   }
 }

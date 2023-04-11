@@ -91,6 +91,7 @@ class EsaNaskSensor(SensorEntity):
             configuration_url=(f"https://esa.nask.pl/szkola/id/{self._stationId}")
         )
         self._attr_attribution = "Data provided by ESA NASK"
+        self._attr_translation_key = DOMAIN
 
     @property
     def state(self):
