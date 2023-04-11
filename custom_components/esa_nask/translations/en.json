@@ -22,12 +22,12 @@
         "state_attributes": {
           "aqi": {
             "state": {
-              "veryGood": "Very good",
+              "verygood": "Very good",
               "good": "Good",
               "moderate": "Moderate",
               "poor": "Poor",
               "bad": "Bad",
-              "veryBad": "Very bad"
+              "verybad": "Very bad"
             }
           }
         }
