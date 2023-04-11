@@ -20,7 +20,7 @@
     "sensor": {
       "esa_nask": {
         "state_attributes": {
-          "AQI": {
+          "aqi": {
             "state": {
               "veryGood": "Bardzo dobry",
               "good": "Dobry",
