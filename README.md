@@ -4,9 +4,9 @@
 
 # ESA NASK Air Quality Sensor
 
-A Home Assistant custom Integration for ESA NASK Air Quality sensors.
+A Home Assistant custom Integration for [ESA NASK Air Quality](https://esa.nask.pl/) sensors.
 
-Integration supports below sensors of ESA NASK station:
+Integration supports the following sensors of ESA NASK stations:
 
 - Particulate matter (PM10)
 - Particulate matter (PM2,5)
