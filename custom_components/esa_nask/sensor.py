@@ -37,7 +37,7 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
-) -> None:
+) -> bool:
     """Set up the ESA NASK sensor entry."""
     
     _LOGGER.debug("config ID:")
@@ -49,6 +49,9 @@ async def async_setup_entry(
     await hass.async_add_executor_job(scrapper.update)
 
     scannedData = scrapper.GetData()
+    if not scannedData or not "sensors" in scannedData:
+        return False
+
     scannedData = scannedData["sensors"][0]["lastMeasurement"]
 
     entities = []
@@ -58,6 +61,8 @@ async def async_setup_entry(
             entities.append(EsaNaskSensor(res, scrapper))
 
     async_add_entities(entities, update_before_add=True)
+    
+    return True
 
 
 
@@ -115,7 +120,7 @@ class EsaNaskSensor(SensorEntity):
     def icon(self) -> str | None:
         return SENSORS[self._resType][2]
 
-    def update(self) -> None:
+    def update(self) -> bool:
         #Fetch new state data for the sensor.
         #This is the only method that should fetch new data for Home Assistant.
 
@@ -124,16 +129,24 @@ class EsaNaskSensor(SensorEntity):
         self._data = self._scrapper.GetData()
         self._updateLastTime = self._scrapper.GetUpdateLastTime()
 
-        if self._resType == 'pm25' or self._resType == 'pm10':
-            self._state = int(self._data["sensors"][0]["lastMeasurement"][self._resType]["value"])
-            self._AQI = self._data["sensors"][0]["lastMeasurement"][self._resType]["icon"]
-        else:
-            self._state = round((self._data["sensors"][0]["lastMeasurement"][self._resType]), 2)
-        
-        self._attr_extra_state_attributes = {
-            "Station Name": self._scrapper.GetStationFriendlyName(),
-            "Station ID": self._scrapper.GetStationId(),
-            "Last Update": self._scrapper.GetUpdateLastTime()
-        }
-        if self._AQI:
-            self._attr_extra_state_attributes["AQI"] = self._AQI
+        if self._data and "sensors" in self._data:
+            try:
+                if self._resType == 'pm25' or self._resType == 'pm10':
+                    self._state = int(self._data["sensors"][0]["lastMeasurement"][self._resType]["value"])
+                    self._AQI = self._data["sensors"][0]["lastMeasurement"][self._resType]["icon"]
+                else:
+                    self._state = round((self._data["sensors"][0]["lastMeasurement"][self._resType]), 2)
+            except TypeError as exc:
+                return False
+
+            self._attr_extra_state_attributes = {
+                "Station Name": self._scrapper.GetStationFriendlyName(),
+                "Station ID": self._scrapper.GetStationId(),
+                "Last Update": self._scrapper.GetUpdateLastTime()
+            }
+            if self._AQI:
+                self._attr_extra_state_attributes["AQI"] = self._AQI
+            
+            return True
+
+        return False
